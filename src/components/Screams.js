@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 const styles = {
     card: {
@@ -29,6 +30,8 @@ const styles = {
 
 class Screams extends Component {
     render() {
+        dayjs.extend(relativeTime)
+
         const { classes, scream:{ imageUrl, userHandle, createdAt, body } } = this.props
 
         return (
@@ -40,7 +43,7 @@ class Screams extends Component {
                     {userHandle}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                    {createdAt}
+                    {dayjs(createdAt).fromNow()}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                     {body}
