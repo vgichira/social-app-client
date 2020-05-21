@@ -36,7 +36,7 @@ class Screams extends Component {
 
         return (
             <Card className={classes.card}>
-                <Avatar alt="Remy Sharp" src={imageUrl} className={classes.large} />
+                <Avatar alt={`${userHandle} Profile Picture`} src={imageUrl} className={classes.large} />
 
                 <CardContent>
                 <Typography gutterBottom variant="h5" component={Link} to={`/users/${userHandle}`} >
