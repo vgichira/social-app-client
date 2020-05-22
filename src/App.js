@@ -29,6 +29,24 @@ const theme = createMuiTheme({
 	}, 
 	typography:{
 		useNextVariants: true
+	},
+	globalStyles: {
+		form: {
+			textAlign:"center",
+		}, 
+		imageLogo: {
+			marginBottom: "10px"
+		},
+		textField: {
+			marginBottom: "30px"
+		},
+		pageTitle: {
+			marginBottom: "20px"
+		},
+		errorMsg: {
+			color: "red",
+			textAlign: "left"
+		}
 	}
 })
 

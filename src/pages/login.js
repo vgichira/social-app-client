@@ -11,24 +11,9 @@ import axios from "axios";
 
 import Grid from "@material-ui/core/Grid";
 
-const styles = {
-    form: {
-        textAlign:"center",
-    }, 
-    imageLogo: {
-        marginBottom: "10px"
-    },
-    textField: {
-        marginBottom: "30px"
-    },
-    pageTitle: {
-        marginBottom: "20px"
-    },
-    errorMsg: {
-        color: "red",
-        textAlign: "left"
-    }
-}
+const styles = (theme) => ({
+    ...theme.globalStyles
+})
 
 class login extends Component {
     state = {
@@ -55,6 +40,8 @@ class login extends Component {
             this.setState({
                 loading: false 
             })
+
+            localStorage.setItem("firebaseToken", response.data.token)
 
             this.props.history.push("/");
         }catch(err){
@@ -107,7 +94,7 @@ class login extends Component {
                             )}
                             </Button>
                     </form><br/>
-                    <small>Dont have an account? <Link to="/signup">Create Free Account</Link></small>
+                    <small>Don't have an account? <Link to="/signup">Create Free Account</Link></small>
                 </Grid>
                 <Grid item sm/>
             </Grid>
