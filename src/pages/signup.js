@@ -48,7 +48,7 @@ class signup extends Component {
                 loading: false 
             })
 
-            localStorage.setItem("firebaseToken", response.data.token)
+            localStorage.setItem("firebaseToken", `Bearer ${response.data.token}`)
 
             this.props.history.push("/");
         }catch(err){
