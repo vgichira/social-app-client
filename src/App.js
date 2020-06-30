@@ -5,6 +5,8 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import globalStyles from "./utils/theme";
 import jwtDecode from "jwt-decode";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 import AuthRoute from "./utils/AuthRoute";
 
@@ -30,17 +32,20 @@ if(token){
 	// check if the token has expired
 
 	if(decodedToken.exp * 1000 < Date.now()){
-		window.location.href = "/login"
+		window.location.href = "/login";
 		authenticated = false;
 	}else{
 		authenticated = true;
 	}
+}else{
+	window.location.href = "/login";
+	authenticated = false;
 }
 
 function App() {
   return (
 	  <MuiThemeProvider theme={theme} >
-		  	<div className="App">
+		  <Provider store={store}>
 				<Router>
 					<NavBar />
 					<div className="container">
@@ -51,7 +56,7 @@ function App() {
 						</Switch>
 					</div>
 				</Router>
-			</div>
+		  </Provider>
 	  </MuiThemeProvider>
   );
 }
