@@ -5,8 +5,12 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import globalStyles from "./utils/theme";
 import jwtDecode from "jwt-decode";
+import axios from 'axios';
+// redux shteff
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { logoutUser, getUserData } from "./redux/actions/userActions";
+import { SET_AUTHENTICATED } from './redux/types';
 
 import AuthRoute from "./utils/AuthRoute";
 
@@ -24,20 +28,25 @@ const theme = createMuiTheme(globalStyles);
 
 const token = localStorage.firebaseToken
 
-let authenticated;
-
 if(token){
 	const decodedToken = jwtDecode(token);
 
 	// check if the token has expired
 
 	if(decodedToken.exp * 1000 < Date.now()){
-		authenticated = false;
+		store.dispatch(logoutUser());
+		window.location.href = '/login';
 	}else{
-		authenticated = true;
+		store.dispatch({
+			type: SET_AUTHENTICATED
+		})
+
+		axios.defaults.headers.common['Authorization'] = token
+
+		store.dispatch(getUserData)
 	}
 }else{
-	authenticated = false;
+	store.dispatch(logoutUser())
 }
 
 function App() {
@@ -49,8 +58,8 @@ function App() {
 					<div className="container">
 						<Switch>
 							<Route exact path="/" component={ home } />
-							<AuthRoute path="/login" component={ login } authenticated={authenticated} />
-							<AuthRoute path="/signup" component={ signup } authenticated={authenticated} />
+							<AuthRoute path="/login" component={ login } />
+							<AuthRoute path="/signup" component={ signup } />
 						</Switch>
 					</div>
 				</Router>
