@@ -21,7 +21,11 @@ const uiReducer = (state = initialState, action) => {
            return {
                ...state, 
                loading: false, 
-               errors: null
+               errors: {
+                   email:"", 
+                   password:"", 
+                   general:""
+               }
            }
         case LOADING_UI:
             return {

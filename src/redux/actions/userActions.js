@@ -12,7 +12,9 @@ export const loginUser = (loginData, history) => async dispatch => {
         const firebaseToken = `Bearer ${response.data.token}`
         localStorage.setItem("firebaseToken", firebaseToken)
         axios.defaults.headers.common['Authorization'] = firebaseToken
+        
         dispatch(getUserData())
+
         dispatch({
             type: CLEAR_ERRORS
         })
@@ -20,9 +22,10 @@ export const loginUser = (loginData, history) => async dispatch => {
         history.push("/");
 
     }catch(err){
+        console.log(err)
         dispatch({
             type: SET_ERRORS, 
-            payload: err.response.data
+            payload: err
         })
     }
 }
