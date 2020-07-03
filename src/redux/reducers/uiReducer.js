@@ -30,7 +30,7 @@ const uiReducer = (state = initialState, action) => {
         case LOADING_UI:
             return {
                 ...state, 
-                loading: true,
+                loading: true, 
             }
         default:
             return state;

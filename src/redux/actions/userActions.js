@@ -22,10 +22,40 @@ export const loginUser = (loginData, history) => async dispatch => {
         history.push("/");
 
     }catch(err){
-        console.log(err)
         dispatch({
             type: SET_ERRORS, 
-            payload: err
+            payload: err.response.data
+        })
+    }
+}
+
+// signup user
+
+export const signupUser = (newUserData, history) => async dispatch => {
+    // dispatch loading state
+    dispatch({
+        type:LOADING_UI
+    })
+
+    try{
+        const response = await axios.post('/signup', newUserData);
+
+        const firebaseToken = response.data.token
+
+        localStorage.setItem("firebaseToken", `Bearer ${firebaseToken}`)
+        axios.defaults.headers.common['Authorization'] = firebaseToken
+
+        dispatch(getUserData())
+
+        dispatch({
+            type: CLEAR_ERRORS
+        })
+
+        history.push("/");
+    }catch(err){
+        dispatch({
+            type: SET_ERRORS, 
+            payload: err.response.data
         })
     }
 }
