@@ -36,7 +36,7 @@ export const getUserData = () => async dispatch => {
         // dispatch SET_USER action
         dispatch({
             type:SET_USER, 
-            payload: response.data
+            payload: response.data 
         })
     } catch (error) {
         console.log(error)
