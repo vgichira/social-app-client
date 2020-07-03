@@ -9,9 +9,7 @@ export const loginUser = (loginData, history) => async dispatch => {
     try{
         const response = await axios.post('/login', loginData);
 
-        const firebaseToken = `Bearer ${response.data.token}`
-        localStorage.setItem("firebaseToken", firebaseToken)
-        axios.defaults.headers.common['Authorization'] = firebaseToken
+        setAuthorizationHeader(response.data.token)
         
         dispatch(getUserData())
 
@@ -40,10 +38,7 @@ export const signupUser = (newUserData, history) => async dispatch => {
     try{
         const response = await axios.post('/signup', newUserData);
 
-        const firebaseToken = response.data.token
-
-        localStorage.setItem("firebaseToken", `Bearer ${firebaseToken}`)
-        axios.defaults.headers.common['Authorization'] = firebaseToken
+        setAuthorizationHeader(response.data.token)
 
         dispatch(getUserData())
 
@@ -74,4 +69,11 @@ export const getUserData = () => async dispatch => {
     } catch (error) {
         console.log(error)
     }
+}
+
+// set authorization header
+
+const setAuthorizationHeader = token => {
+    localStorage.setItem("firebaseToken", `Bearer ${token}`)
+    axios.defaults.headers.common['Authorization'] = token
 }
