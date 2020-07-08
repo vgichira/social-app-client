@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 import Grid from "@material-ui/core/Grid";
+import Profile from "../components/Profile";
 
 // components
 
@@ -37,7 +38,7 @@ class home extends Component {
                 </Grid>
 
                 <Grid item sm={4} xs={12}>
-                    Profile
+                    <Profile/>
                 </Grid>
             </Grid>
         )

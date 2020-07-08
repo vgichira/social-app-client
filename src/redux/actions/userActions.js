@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED } from '../types';
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
 import axios from "axios";
 
 export const loginUser = (loginData, history) => async dispatch => {
@@ -69,6 +69,9 @@ export const logoutUser = () => dispatch => {
 // get user details
 
 export const getUserData = () => async dispatch => {
+    dispatch({
+        type: LOADING_USER
+    })
     try {
         const response = await axios.get('/user')
 
